@@ -7,9 +7,13 @@ var bodyParser = require('body-parser');
 var book = require('./routes/book');
 var app = express();
 
+//mongodb://admin:password@ds031601.mlab.com:31601/todoapp
+
+//ds263639.mlab.com:63639/mean-angular5
+//
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost/mean-angular5', { useMongoClient: true, promiseLibrary: require('bluebird') })
+mongoose.connect('mongodb://mpeng:password@ds263639.mlab.com:63639/mean-angular5', { useMongoClient: true, promiseLibrary: require('bluebird') })
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
@@ -35,7 +39,12 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  //res.render('error');
+  res.json({
+	  message: err.message,
+	  error: err
+  });
+  
 });
 
 module.exports = app;
